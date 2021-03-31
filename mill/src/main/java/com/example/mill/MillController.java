@@ -1,16 +1,15 @@
 package com.example.mill;
 
-import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.mill.bean.MillService;
 import com.example.mill.bean.MillState;
 
-@RestController()
-@EnableScheduling
+@RestController
 @RequestMapping("/rest/mill")
 public class MillController {
 
@@ -20,23 +19,27 @@ public class MillController {
         this.millService = millService;
     }
 
-    @GetMapping()
-    public MillState state() {
+    @GetMapping
+    public MillState state(){
         return millService.getState();
     }
 
-    @PostMapping(path = "water/{capacity}")
-    public void water(@PathVariable Integer capacity) {
+    @PostMapping("water/{capacity}")
+    public String addWater(@PathVariable Integer capacity){
         millService.addWater(capacity);
+        return "OK";
     }
 
-    @PostMapping(path = "millet/{capacity}")
-    public void millet(@PathVariable Integer capacity) {
+    @PostMapping("/millet/{capacity}")
+    public String addMillet(@PathVariable Integer capacity){
         millService.addMillet(capacity);
+        return "OK";
     }
 
-    @PostMapping(path = "flour/drop")
-    public void millet() {
+    @PostMapping("flour/drop")
+    public String dropFlour(){
         millService.dropFlour();
+        return "OK";
     }
+
 }

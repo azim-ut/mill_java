@@ -5,8 +5,7 @@ import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 
-import com.example.mill.MillService;
-
+import com.example.mill.bean.MillService;
 
 @Configuration
 @EnableWebSocket
@@ -20,8 +19,6 @@ public class SocketConfiguration implements WebSocketConfigurer {
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry webSocketHandlerRegistry) {
-        webSocketHandlerRegistry
-                .addHandler(new SocketHandler(millService), "/ws").setAllowedOrigins("*");
+        webSocketHandlerRegistry.addHandler(new MillSocketHandler(millService), "/websocket").setAllowedOrigins("*");
     }
 }
-
